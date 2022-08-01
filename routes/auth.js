@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
       data: { user: null },
       message: error.message,
     };
-    res.status(400).json(data);
+    res.status(200).json(data);
   }
 });
 
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
       },'7d');
       const data = {
         success: true,
-        data: { token },
+        data: { token,user:{email:user.email,id:user._id} },
         message: "login success",
       };
       res.status(201).json(data);
@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
       data: { user: null },
       message: error.message,
     };
-    res.status(400).json(data);
+    res.status(200).json(data);
   }
 });
 
