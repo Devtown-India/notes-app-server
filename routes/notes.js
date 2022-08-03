@@ -28,10 +28,11 @@ router.get("/", isAuthorised, async (req, res) => {
 router.post("/add", isAuthorised, async (req, res) => {
   try {
     const userId = req.user;
-    const { title, content } = req.body;
+    const { title, content,color="#fff" } = req.body;
     const note = new Note({
       title,
       content,
+      color,
       author: userId,
     });
 
@@ -60,7 +61,7 @@ router.post("/add", isAuthorised, async (req, res) => {
       data: { note: null },
       message: error.message,
     };
-    res.status(400).json(data);
+    res.status(200).json(data);
   }
 });
 

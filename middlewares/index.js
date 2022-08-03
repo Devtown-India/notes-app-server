@@ -19,7 +19,11 @@ const isAuthorised = (req,res,next)=>{
         req.user = id
         next()
     }
-    else return res.send("Access denied")
+    else return res.send( {
+      success: false,
+      data: { },
+      message: "Access denied",
+    })
 }
 
 module.exports = {
