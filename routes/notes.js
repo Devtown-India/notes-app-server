@@ -21,7 +21,29 @@ router.get("/", isAuthorised, async (req, res) => {
       data: { notes: null },
       message: error.message,
     };
-    res.status(400).json(data);
+    res.status(200).json(data);
+  }
+});
+
+router.get("/:id", isAuthorised, async (req, res) => {
+  try {
+    const {id} = req.params;
+    const note = await Note.findById(id);
+
+    const data = {
+      success: true,
+      data: { note },
+      message: "Note fetched successfully",
+    };
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    const data = {
+      success: false,
+      data: { note: null },
+      message: error.message,
+    };
+    res.status(200).json(data);
   }
 });
 
@@ -52,6 +74,28 @@ router.post("/add", isAuthorised, async (req, res) => {
       success: true,
       data: { note },
       message: "Note added successfully",
+    };
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    const data = {
+      success: false,
+      data: { note: null },
+      message: error.message,
+    };
+    res.status(200).json(data);
+  }
+});
+
+router.put("/:id", isAuthorised, async (req, res) => {
+  try {
+    const {id} = req.params;
+    const note = await Note.findByIdAndUpdate(id,{...req.body});
+
+    const data = {
+      success: true,
+      data: { note },
+      message: "Note updated successfully",
     };
     res.status(200).json(data);
   } catch (error) {
